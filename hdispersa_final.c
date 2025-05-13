@@ -41,3 +41,44 @@ void liberarMatriz(int **matriz, int columnas){
     }
     free(matriz);
 }
+
+int cargarMatriz(char *nombreArchivo, int **matriz, int filas, int *columnas){
+    FILE *archivo = fopen(nombreArchivo, "r");
+    if(archivo == NULL){
+        perror("Error al abrir el archivo.");
+        return -1;
+    }
+    for(int i=0; i<filas; i++){
+        for(int j=0; j<columnas; j++){
+            if(fscanf(archivo, "%d", &matriz[i][j]) != 1){
+                fclose(archivo);
+                fprintf(stderr, "Error leyendo el archivo: formato inválido\n");
+                return -1;
+            }
+        }
+    }
+    fclose(archivo);
+    return 0;
+}
+
+int main(int argc, char *argv[]){
+    int filas=0, columnas=0, numHilos=0, porcentaje=0;
+    char *nombreArchivo = NULL;
+    for (int i = 1; i < argc; i++) {
+        if (!strcmp(argv[i], "-f") && i + 1 < argc) {
+            filas = atoi(argv[i++]);
+        } else if (!strcmp(argv[i], "-c") && i + 1 < argc) {
+            columnas = atoi(argv[i++]);
+        } else if (!strcmp(argv[i], "-a") && i + 1 < argc) {
+            nombreArchivo = argv[i++];
+        } else if (!strcmp(argv[i], "-n") && i + 1 < argc) {
+            numHilos = atoi(argv[i++]);
+        } else if (!strcmp(argv[i], "-p") && i + 1 < argc) {
+            porcentaje = atoi(argv[i++]);
+        }
+    }
+    if(filas <= 0 || columnas <= 0 || numHilos <= 0 || porcentaje < 0 || porcentaje > 100){
+        fprintf(stderr, "Error: Filas y columnas deben ser mayores a cero y porcentaje entre 0 y 100.\n");
+        return -1;
+    }
+}
