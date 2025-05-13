@@ -11,10 +11,10 @@ typedef struct
     int columnas;
     int **matriz;
     int contadorNoCeros;
-} datosHilos;
+} DatosHilos;
 
 void *contarNoCero(void *arg){
-    datosHilos *datos = (datosHilos *)arg;
+    DatosHilos *datos = (DatosHilos *)arg;
     int contador = 0;
     for(int i=datos->filaFinal; i<datos->filaFinal; i++){
         for(int j=0; j<datos->columnas; j++){
@@ -64,6 +64,7 @@ int cargarMatriz(char *nombreArchivo, int **matriz, int filas, int *columnas){
 int main(int argc, char *argv[]){
     int filas=0, columnas=0, numHilos=0, porcentaje=0;
     char *nombreArchivo = NULL;
+
     for (int i = 1; i < argc; i++) {
         if (!strcmp(argv[i], "-f") && i + 1 < argc) {
             filas = atoi(argv[i++]);
@@ -77,8 +78,37 @@ int main(int argc, char *argv[]){
             porcentaje = atoi(argv[i++]);
         }
     }
+
     if(filas <= 0 || columnas <= 0 || numHilos <= 0 || porcentaje < 0 || porcentaje > 100){
-        fprintf(stderr, "Error: Filas y columnas deben ser mayores a cero y porcentaje entre 0 y 100.\n");
-        return -1;
+        fprintf(stderr, "Uso: ./hdispersa -f M(>0) -c N(>0) -a archivo -n hilos(>0) -p porcentaje(0-100)\n");
+        exit(EXIT_FAILURE);
     }
+
+    int totalElementos = filas * columnas;
+    int minimoCeros = ceil(totalElementos * (porcentaje / 100.0));
+    int **matriz = crearMatriz(filas, columnas);
+    if(cargarMatriz(nombreArchivo, matriz, filas, columnas) != 0){
+        liberarMatriz(matriz, filas);
+        exit(EXIT_FAILURE);
+    }
+
+    pthread_t *hilos = (pthread_t *)malloc(numHilos * sizeof(pthread_t));
+    DatosHilos *datos = (DatosHilos *)malloc(numHilos * sizeof(DatosHilos));
+    int filasPorHilo = filas / numHilos;
+    int filasRestantes = filas % numHilos;
+    int filaActual = 0;
+    for(int i=0; i<numHilos; i++){
+        int filaExtra = (i < filasRestantes) ? 1 : 0;
+        datos[i].filaInicial = filaActual;
+        datos[i].filaFinal = filaActual + filasPorHilo + filaExtra;
+        datos[i].columnas = columnas;
+        datos[i].matriz = matriz;
+        datos[i].contadorNoCeros = 0;
+        filaActual = datos[i].filaFinal;
+        pthread_create(&hilos[i], NULL, contarNoCero, &datos[i]);
+    }
+
+
+
+    return 0;
 }
