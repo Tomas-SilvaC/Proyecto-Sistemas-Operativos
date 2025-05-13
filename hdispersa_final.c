@@ -11,10 +11,10 @@ typedef struct
     int columnas;
     int **matriz;
     int contadorNoCeros;
-} datos_hilos;
+} datosHilos;
 
-void *contar_no_cero(void *arg){
-    datos_hilos *datos = (datos_hilos *)arg;
+void *contarNoCero(void *arg){
+    datosHilos *datos = (datosHilos *)arg;
     int contador = 0;
     for(int i=datos->filaFinal; i<datos->filaFinal; i++){
         for(int j=0; j<datos->columnas; j++){
