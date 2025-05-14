@@ -108,6 +108,7 @@ int main(int argc, char *argv[]){
         pthread_create(&hilos[i], NULL, contarNoCero, &datos[i]);
     }
 
+    int totalNoCeros = 0;
 
 
     return 0;
