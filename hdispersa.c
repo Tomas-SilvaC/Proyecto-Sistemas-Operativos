@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <pthread.h>
+#include <time.h>
+#include <string.h>
+#include <math.h>
 #include "UtilsGeneral/utilidades.h"
 #include "UtilsHdispersa/hilos.h"
 #include "UtilsHdispersa/matriz.h"
@@ -11,6 +14,7 @@ int main(int argc, char *argv[]) {
     char *nombreArchivo = NULL;
 
     if (procesarArgumentos(argc, argv, &filas, &columnas, &nombreArchivo, &numHilos, &porcentaje) != 0) {
+        printf("Ocurrio un error...");
         exit(EXIT_FAILURE);
     }
 
@@ -22,6 +26,9 @@ int main(int argc, char *argv[]) {
         liberarMatriz(matriz, filas);
         exit(EXIT_FAILURE);
     }
+
+    struct timespec inicio, fin;
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
 
     pthread_t *hilos = malloc(numHilos * sizeof(pthread_t));
     DatosHilos *datos = malloc(numHilos * sizeof(DatosHilos));
