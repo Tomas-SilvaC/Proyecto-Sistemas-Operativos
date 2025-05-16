@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "hilos.h"
 
 void *contarNoCero(void *arg) {

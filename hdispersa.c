@@ -8,6 +8,7 @@
 #include "UtilsGeneral/utilidades.h"
 #include "UtilsHdispersa/hilos.h"
 #include "UtilsHdispersa/matriz.h"
+#include "UtilsGeneral/temporizador.h"
 
 int main(int argc, char *argv[]) {
     int filas = 0, columnas = 0, numHilos = 0, porcentaje = 0;
@@ -27,8 +28,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    struct timespec inicio, fin;
-    clock_gettime(CLOCK_MONOTONIC, &inicio);
+    iniciarTemporizador();
 
     pthread_t *hilos = malloc(numHilos * sizeof(pthread_t));
     DatosHilos *datos = malloc(numHilos * sizeof(DatosHilos));
@@ -56,6 +56,8 @@ int main(int argc, char *argv[]) {
 
     int totalCeros = totalElementos - totalNoCeros;
     double porcentajeFinal = (totalCeros * 100.0) / totalElementos;
+
+    detenerTemporizador();
 
     printf("La matriz en el archivo %s tiene un total de %d ceros (%.0f%%), ", nombreArchivo, totalCeros, porcentajeFinal);
     if (totalCeros >= minimoCeros) {

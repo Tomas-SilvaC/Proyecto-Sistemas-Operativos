@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #ifndef HILOS_H
 #define HILOS_H
 
