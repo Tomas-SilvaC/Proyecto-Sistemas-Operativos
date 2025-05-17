@@ -13,6 +13,6 @@
 extern struct timeval tiempoInicio, tiempoFin;
 
 void iniciarTemporizador();
-void detenerTemporizador();
+double detenerTemporizador();
 
 #endif
