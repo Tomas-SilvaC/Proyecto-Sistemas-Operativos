@@ -8,7 +8,7 @@ chomp($Path);
 
 # Lista de ejecutables
 my @nombreEjecutable = ("hdispersa");
-my $Repeticiones = 30;
+my $Repeticiones = 16;
 
 foreach my $ejecutable (@nombreEjecutable) {
     my $archivo = "$Path/$ejecutable.dat";
