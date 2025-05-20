@@ -31,6 +31,8 @@ int main(int argc, char *argv[]) {
 
     iniciarTemporizador();
 
+    printf("Se va a trabajar con %d trabajadores.\n",numHilos);
+
     pthread_t *hilos = malloc(numHilos * sizeof(pthread_t));
     DatosHilos *datos = malloc(numHilos * sizeof(DatosHilos));
 
