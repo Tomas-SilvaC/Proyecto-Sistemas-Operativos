@@ -1,14 +1,9 @@
-#include <iostream>
-#include <fstream>
-#include <cstdlib>   // Para rand(), srand()
-#include <ctime>     // Para time()
-#include <vector>
-#include <algorithm> // Para std::shuffle
+#include <bits/stdc++.h>
 
 int main() {
+
     int filas, columnas, cantidadCeros;
 
-    // Pedimos datos al usuario
     std::cout << "Ingrese el número de filas: ";
     std::cin >> filas;
     std::cout << "Ingrese el número de columnas: ";
@@ -24,24 +19,20 @@ int main() {
 
     int cantidadUnos = total - cantidadCeros;
 
-    // Crear un vector con los valores (ceros y unos)
-    std::vector<int> matriz(total, 1);  // Iniciamos con todos unos
+    std::vector<int> matriz(total, 1);
     for (int i = 0; i < cantidadCeros; ++i) {
-        matriz[i] = 0; // Asignamos ceros al inicio
+        matriz[i] = 0;
     }
 
-    // Aleatorizamos el vector
     std::srand(std::time(0));
     std::random_shuffle(matriz.begin(), matriz.end());
 
-    // Abrir archivo
     std::ofstream archivo("matriz.txt");
     if (!archivo.is_open()) {
         std::cerr << "No se pudo crear el archivo." << std::endl;
         return 1;
     }
 
-    // Escribir en el archivo la matriz en formato filas x columnas
     for (int i = 0; i < total; ++i) {
         archivo << matriz[i];
         if ((i + 1) % columnas == 0)
