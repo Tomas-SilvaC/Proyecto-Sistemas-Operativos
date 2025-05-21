@@ -1,15 +1,11 @@
 //hdispersa
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 #include <pthread.h>
-#include <time.h>
-#include <string.h>
 #include <math.h>
-#include "UtilsGeneral/utilidades.h"
+
 #include "UtilsHdispersa/hilos.h"
-#include "UtilsHdispersa/matriz.h"
+#include "UtilsGeneral/matriz.h"
 #include "UtilsGeneral/temporizador.h"
+#include "UtilsGeneral/utilidades.h"
 
 int main(int argc, char *argv[]) {
     int filas = 0, columnas = 0, numHilos = 0, porcentaje = 0;
@@ -72,5 +68,6 @@ int main(int argc, char *argv[]) {
     liberarMatriz(matriz, filas);
     free(hilos);
     free(datos);
+    
     return 0;
 }

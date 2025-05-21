@@ -1,36 +1,23 @@
 #include <bits/stdc++.h>
 
-int main() {
+using namespace std;
 
-    int filas, columnas, cantidadCeros;
-
-    std::cout << "Ingrese el número de filas: ";
-    std::cin >> filas;
-    std::cout << "Ingrese el número de columnas: ";
-    std::cin >> columnas;
-    std::cout << "Ingrese la cantidad de ceros que desea: ";
-    std::cin >> cantidadCeros;
-
+void generarMatriz(int filas, int columnas, int cantidadCeros, const string &nombreArchivo) {
     int total = filas * columnas;
-    if (cantidadCeros > total || cantidadCeros < 0) {
-        std::cerr << "La cantidad de ceros no es válida. Debe ser entre 0 y " << total << ".\n";
-        return 1;
-    }
-
     int cantidadUnos = total - cantidadCeros;
 
-    std::vector<int> matriz(total, 1);
+    vector<int> matriz(total, 1);
     for (int i = 0; i < cantidadCeros; ++i) {
         matriz[i] = 0;
     }
 
-    std::srand(std::time(0));
-    std::random_shuffle(matriz.begin(), matriz.end());
+    srand(time(0));
+    random_shuffle(matriz.begin(), matriz.end());
 
-    std::ofstream archivo("matriz.txt");
+    ofstream archivo(nombreArchivo);
     if (!archivo.is_open()) {
-        std::cerr << "No se pudo crear el archivo." << std::endl;
-        return 1;
+        cerr << "No se pudo crear el archivo " << nombreArchivo << endl;
+        return;
     }
 
     for (int i = 0; i < total; ++i) {
@@ -43,10 +30,60 @@ int main() {
 
     archivo.close();
 
-    std::cout << "Matriz generada correctamente.\n";
-    std::cout << "Cantidad de ceros: " << cantidadCeros << std::endl;
-    std::cout << "Cantidad de unos: " << cantidadUnos << std::endl;
-    std::cout << "Total de elementos: " << total << std::endl;
+    cout << "Matriz generada correctamente: " << nombreArchivo << "\n";
+    cout << "Tamaño: " << filas << "x" << columnas << "\n";
+    cout << "Ceros: " << cantidadCeros << ", Unos: " << cantidadUnos << "\n\n";
+}
+
+int main(int argc, char *argv[]) {
+    int opcion = 0;
+
+    // Si se pasa un argumento (opción directa)
+    if (argc > 1) {
+        opcion = atoi(argv[1]);  // Convierte el argumento a entero
+    } else {
+        // Mostrar menú si no hay argumento
+        cout << "Generador de matrices\n";
+        cout << "1. Generar matriz personalizada (matriz.txt)\n";
+        cout << "2. Generar matrices de evaluación (matriz1000.txt, matriz2000.txt, ...)\n";
+        cout << "Ingrese una opción: ";
+        cin >> opcion;
+    }
+
+    if (opcion == 1) {
+        int filas, columnas, cantidadCeros;
+        cout << "Ingrese el número de filas: ";
+        cin >> filas;
+        cout << "Ingrese el número de columnas: ";
+        cin >> columnas;
+        cout << "Ingrese la cantidad de ceros que desea: ";
+        cin >> cantidadCeros;
+
+        int total = filas * columnas;
+        if (cantidadCeros > total || cantidadCeros < 0) {
+            cerr << "La cantidad de ceros no es válida. Debe ser entre 0 y " << total << ".\n";
+            return 1;
+        }
+
+        generarMatriz(filas, columnas, cantidadCeros, "matriz.txt");
+
+    } else if (opcion == 2) {
+        vector<int> tamanos = {1000, 2000, 5000, 8000, 10000};
+
+        for (int tam : tamanos) {
+            int total = tam * tam;
+            int cantidadCeros = static_cast<int>(round(total * 0.77));
+            string nombreArchivo = "matriz" + to_string(tam) + ".txt";
+
+            generarMatriz(tam, tam, cantidadCeros, nombreArchivo);
+        }
+
+        cout << "Todas las matrices de evaluación fueron generadas correctamente.\n";
+
+    } else {
+        cerr << "Opción inválida.\n";
+        return 1;
+    }
 
     return 0;
 }

@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "utilidades.h"
 
 int procesarArgumentos(int argc, char *argv[], int *filas, int *columnas, char **archivo, int *hilos, int *porcentaje) {
@@ -19,6 +16,7 @@ int procesarArgumentos(int argc, char *argv[], int *filas, int *columnas, char *
             fprintf(stderr, "Parámetro inválido o faltante: %s\n", argv[i]);
             return -1;
         }
+
     }
 
     if (*archivo == NULL || *filas <= 0 || *columnas <= 0 || *hilos <= 0 || *porcentaje < 0 || *porcentaje > 100) {
