@@ -1,28 +1,40 @@
-# Compiladores
 CC = gcc
 CXX = g++
+CFLAGS = -Wall -lm
+PTHREAD = -lpthread
 
-# Flags generales
-CFLAGS = -Wall -IUtilsGeneral -IUtilsHdispersa -IUtilsPdispersa
+# Carpetas
+UTILS_GENERAL = UtilsGeneral
+UTILS_HDISPERSA = UtilsHdispersa
+UTILS_PDISPERSA = UtilsPdispersa
 
-# Archivos fuente comunes
-UTILS_GENERAL = UtilsGeneral/matriz.c UtilsGeneral/temporizador.c UtilsGeneral/utilidades.c
+# Archivos objeto comunes
+GENERAL_OBJS = $(UTILS_GENERAL)/matriz.o $(UTILS_GENERAL)/temporizador.o $(UTILS_GENERAL)/utilidades.o
 
-# Objetivo por defecto
+# Archivos objeto específicos
+HDISPERSA_OBJS = $(UTILS_HDISPERSA)/hilos.o
+PDISPERSA_OBJS = $(UTILS_PDISPERSA)/procesos.o
+
+# Objetivos
 all: hdispersa pdispersa generador
 
-# Compilación de hdispersa (usa math.h y pthread)
-hdispersa: hdispersa.c UtilsHdispersa/hilos.c $(UTILS_GENERAL)
-	$(CC) $(CFLAGS) -o hdispersa hdispersa.c UtilsHdispersa/hilos.c $(UTILS_GENERAL) -lm -lpthread
+hdispersa: hdispersa.c $(GENERAL_OBJS) $(HDISPERSA_OBJS)
+	$(CC) -o hdispersa hdispersa.c $(GENERAL_OBJS) $(HDISPERSA_OBJS) $(CFLAGS) $(PTHREAD)
 
-# Compilación de pdispersa (usa math.h)
-pdispersa: pdispersa.c UtilsPdispersa/procesos.c $(UTILS_GENERAL)
-	$(CC) $(CFLAGS) -o pdispersa pdispersa.c UtilsPdispersa/procesos.c $(UTILS_GENERAL) -lm
+pdispersa: pdispersa.c $(GENERAL_OBJS) $(PDISPERSA_OBJS)
+	$(CC) -o pdispersa pdispersa.c $(GENERAL_OBJS) $(PDISPERSA_OBJS) $(CFLAGS)
 
-# Compilación del generador de matrices (escrito en C++)
 generador: generadormatrices.cpp
-	$(CXX) -Wall -o generador generadormatrices.cpp
+	$(CXX) -o generador generadormatrices.cpp
 
-# Limpieza
+# Regla para compilar archivos .c a .o
+%.o: %.c
+	$(CC) -c $< -o $@
+
 clean:
 	rm -f hdispersa pdispersa generador
+	rm -f $(UTILS_GENERAL)/*.o $(UTILS_HDISPERSA)/*.o $(UTILS_PDISPERSA)/*.o
+	rm -f matriz.txt
+	rm -f *.dat
+
+.PHONY: all clean
