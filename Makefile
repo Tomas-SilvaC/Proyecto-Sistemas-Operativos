@@ -34,7 +34,7 @@ generador: generadormatrices.cpp
 clean:
 	rm -f hdispersa pdispersa generador
 	rm -f $(UTILS_GENERAL)/*.o $(UTILS_HDISPERSA)/*.o $(UTILS_PDISPERSA)/*.o
-	rm -f matriz.txt
+	rm -f *.txt
 	rm -f *.dat
 
 .PHONY: all clean
