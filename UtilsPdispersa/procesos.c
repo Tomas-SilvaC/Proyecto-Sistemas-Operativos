@@ -6,7 +6,10 @@
         Tema: Proyecto Final
         Fichero: procesos.c
         Descripción: 
-            Este fichero 
+            Implementación de funciones para conteo distribuido usando procesos:
+            - Función principal que maneja la comunicación de resultados
+            - Lógica para conteo de elementos no cero en segmento de matriz
+            - Dos modos de comunicación: código de salida o archivo temporal
 ****************************************************************/
 
 #include "procesos.h"
