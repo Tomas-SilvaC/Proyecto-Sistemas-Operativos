@@ -4,11 +4,9 @@
 #         Fecha: Mayo 2025
 #         Materia: Sistemas Operativos
 #         Tema: Proyecto Final
-#         Fichero: GeneradorMatrices
+#         Fichero: Makefile
 #         Descripción: 
-#             Este fichero permite generar matrices cuadradas o rectangulares
-#             de valores binarios (0 y 1), donde una cantidad específica de ceros 
-#             es distribuida aleatoriamente entre los elementos.
+#             Este fichero 
 # **************************************************************
 
 CC = gcc
