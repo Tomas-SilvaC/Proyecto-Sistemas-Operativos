@@ -1,4 +1,13 @@
-//hdispersa
+/**
+                Pontificia Universidad Javeriana
+        Autores: Gabriel Jaramillo, Juan Pabón, Tomas Silva y Felipe Rodrpiguez
+        Fecha: Mayo 2025
+        Materia: Sistemas Operativos
+        Tema: Proyecto Final
+        Fichero: hdispersa
+        Descripción: 
+            
+**/
 #include <pthread.h>
 #include <math.h>
 
