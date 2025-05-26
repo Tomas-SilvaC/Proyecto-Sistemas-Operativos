@@ -1,3 +1,14 @@
+# **************************************************************
+#                 Pontificia Universidad Javeriana
+#         Autores: Gabriel Jaramillo, Juan Pabón, Tomas Silva y Felipe Rodriguez
+#         Fecha: Mayo 2025
+#         Materia: Sistemas Operativos
+#         Tema: Proyecto Final
+#         Fichero: Makefile
+#         Descripción: 
+#             Este fichero 
+# **************************************************************
+
 CC = gcc
 CXX = g++
 CFLAGS = -Wall -lm

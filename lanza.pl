@@ -1,4 +1,14 @@
 #!/usr/bin/perl
+# **************************************************************
+#                 Pontificia Universidad Javeriana
+#         Autores: Gabriel Jaramillo, Juan Pabón, Tomas Silva y Felipe Rodriguez
+#         Fecha: Mayo 2025
+#         Materia: Sistemas Operativos
+#         Tema: Proyecto Final
+#         Fichero: lanza.pl
+#         Descripción: 
+#             Este fichero
+# **************************************************************
 
 use strict;
 use warnings;

@@ -1,3 +1,14 @@
+/**************************************************************
+                Pontificia Universidad Javeriana
+        Autores: Gabriel Jaramillo, Juan Pabón, Tomas Silva y Felipe Rodrpiguez
+        Fecha: Mayo 2025
+        Materia: Sistemas Operativos
+        Tema: Proyecto Final
+        Fichero: utilidades.c
+        Descripción: 
+            Este fichero 
+****************************************************************/
+
 #include "utilidades.h"
 
 int procesarArgumentos(int argc, char *argv[], int *filas, int *columnas, char **archivo, int *hilos, int *porcentaje) {

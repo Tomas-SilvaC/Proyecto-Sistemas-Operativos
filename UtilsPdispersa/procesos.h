@@ -1,3 +1,14 @@
+/**************************************************************
+                Pontificia Universidad Javeriana
+        Autores: Gabriel Jaramillo, Juan Pabón, Tomas Silva y Felipe Rodrpiguez
+        Fecha: Mayo 2025
+        Materia: Sistemas Operativos
+        Tema: Proyecto Final
+        Fichero: procesos.h
+        Descripción: 
+            Este fichero
+****************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
