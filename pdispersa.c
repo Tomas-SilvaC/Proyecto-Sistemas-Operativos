@@ -1,3 +1,14 @@
+/**************************************************************
+                Pontificia Universidad Javeriana
+        Autores: Gabriel Jaramillo, Juan Pabón, Tomas Silva y Felipe Rodrpiguez
+        Fecha: Mayo 2025
+        Materia: Sistemas Operativos
+        Tema: Proyecto Final
+        Fichero: pdispersa.c
+        Descripción: 
+            Este fichero ...
+****************************************************************/
+
 #include "UtilsGeneral/utilidades.h"
 #include "UtilsGeneral/matriz.h"
 #include "UtilsGeneral/temporizador.h"
