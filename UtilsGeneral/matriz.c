@@ -6,11 +6,16 @@
         Tema: Proyecto Final
         Fichero: matriz.c
         Descripción: 
-            Este fichero 
+             Implementación de funciones básicas para manejo de matrices:
+            - Creación y liberación de matrices dinámicas
+            - Carga de matrices desde archivos de texto
 ****************************************************************/
 
 #include "matriz.h"
 
+/* Función que se encarga de crear una matriz
+   dinámica de tamaño filas x columnas y devuelve 
+   el apuntador a la matriz creada */
 int **crearMatriz(int filas, int columnas) {
     int **matriz = (int **)malloc(filas * sizeof(int *));
     for (int i = 0; i < filas; i++) {
@@ -19,13 +24,19 @@ int **crearMatriz(int filas, int columnas) {
     return matriz;
 }
 
+/* Función que libera la memoria ocupada por
+   una matriz */
 void liberarMatriz(int **matriz, int filas) {
+    // Libera cada fila individualmente
     for (int i = 0; i < filas; i++) {
         free(matriz[i]);
     }
+    // Libera el arreglo de apuntadores
     free(matriz);
 }
 
+/* Función que se encarga de cargar los valores de una matriz
+   desde un archivo de texto dado */
 int cargarMatriz(char *nombreArchivo, int **matriz, int filas, int columnas) {
     FILE *archivo = fopen(nombreArchivo, "r");
     if (archivo == NULL) {
@@ -33,6 +44,7 @@ int cargarMatriz(char *nombreArchivo, int **matriz, int filas, int columnas) {
         return -1;
     }
 
+    // Lectura secuencial de los valores
     for (int i = 0; i < filas; i++) {
         for (int j = 0; j < columnas; j++) {
             if (fscanf(archivo, "%d", &matriz[i][j]) != 1) {
