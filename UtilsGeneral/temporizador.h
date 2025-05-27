@@ -6,7 +6,9 @@
         Tema: Proyecto Final
         Fichero: temporizador.h
         Descripción: 
-            Este fichero 
+            Interfaz para medición precisa de tiempos de ejecución:
+            - Declaración de funciones para control del temporizador
+            - Definición de estructura para almacenamiento de tiempos 
 ****************************************************************/
 
 #ifndef TEMPORIZADOR_H
@@ -21,9 +23,10 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+// Variables globales compartidas
 extern struct timeval tiempoInicio, tiempoFin;
 
-void iniciarTemporizador();
-double detenerTemporizador();
+void iniciarTemporizador(); // Inicia el temporizador guardando el tiempo actual
+double detenerTemporizador(); // Detiene el temporizador y calcula el tiempo transcurrido
 
 #endif

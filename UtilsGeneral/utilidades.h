@@ -6,7 +6,8 @@
         Tema: Proyecto Final
         Fichero: utilidades.h
         Descripción: 
-            Este fichero 
+            Interfaz para el procesamiento de argumentos de línea de comandos:
+            - Declaración de función para validación de parámetros de entrada 
 ****************************************************************/
 
 #include <stdio.h>
@@ -16,6 +17,6 @@
 #ifndef UTILIDADES_H
 #define UTILIDADES_H
 
-int procesarArgumentos(int argc, char *argv[], int *filas, int *columnas, char **archivo, int *hilos, int *porcentaje);
+int procesarArgumentos(int argc, char *argv[], int *filas, int *columnas, char **archivo, int *hilos, int *porcentaje); // Procesa y valida los argumentos de línea de comandos
 
 #endif

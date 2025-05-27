@@ -6,13 +6,22 @@
         Tema: Proyecto Final
         Fichero: utilidades.c
         Descripción: 
-            Este fichero 
+          Implementación del procesamiento de argumentos de línea de comandos:
+            - Validación y extracción de parámetros de entrada
+            - Verificación de valores dentro de rangos aceptables
+            - Generación de mensajes de error descriptivos
+            - Soporte para ambos programas (hdispersa y pdispersa)
 ****************************************************************/
 
 #include "utilidades.h"
 
+/* Función que procesa y valida los argumentos
+   de la linea de comandos */
 int procesarArgumentos(int argc, char *argv[], int *filas, int *columnas, char **archivo, int *hilos, int *porcentaje) {
+
+    // Procesamiento de cada argumento
     for (int i = 1; i < argc; i++) {
+      
         if (!strcmp(argv[i], "-f") && i + 1 < argc) {
             *filas = atoi(argv[++i]);
         } else if (!strcmp(argv[i], "-c") && i + 1 < argc) {
@@ -30,6 +39,9 @@ int procesarArgumentos(int argc, char *argv[], int *filas, int *columnas, char *
 
     }
 
+   /* Validación final de parámetros:
+       - Todos los parámetros obligatorios deben estar presentes
+       - Valores deben estar en rangos aceptables */
     if (*archivo == NULL || *filas <= 0 || *columnas <= 0 || *hilos <= 0 || *porcentaje < 0 || *porcentaje > 100) {
         fprintf(stderr, "Uso: ./hdispersa -f M(>0) -c N(>0) -a archivo -n hilos(>0) -p porcentaje(0-100)\n");
         return -1;

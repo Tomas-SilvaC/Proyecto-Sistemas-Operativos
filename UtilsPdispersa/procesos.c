@@ -6,18 +6,25 @@
         Tema: Proyecto Final
         Fichero: procesos.c
         Descripción: 
-            Este fichero 
+            Implementación de funciones para conteo distribuido usando procesos:
+            - Función principal que maneja la comunicación de resultados
+            - Lógica para conteo de elementos no cero en segmento de matriz
+            - Dos modos de comunicación: código de salida o archivo temporal
 ****************************************************************/
 
 #include "procesos.h"
 
+/* Cuenta los elementos no cero en un segmento
+   de matriz */
 int contarNoCero(DatosProcesos arg) {
     DatosProcesos datos = arg;
-    int contador = 0;
+    int contador = 0; // Variable local para almacenar la cantidad de elementos no ceros
+
+    // Recorrido del segmento de matriz asignado
     for (int i = datos.filaInicial; i < datos.filaFinal; i++) {
         for (int j = 0; j < datos.columnas; j++) {
             if (datos.matriz[i][j] != 0) {
-                contador++;
+                contador++; // Aumenta la variable local
             }
         }
     }
@@ -25,14 +32,19 @@ int contarNoCero(DatosProcesos arg) {
     return contador;
 }
 
+/* Función principal ejecutada por cada proceso hijo */
 void funcProceso(DatosProcesos arg)
 {
     int cuenta = contarNoCero(arg);
+
+    // Comunicación de resultados
     if(cuenta<=254)
     {
+        // Resultado pequeño: usar código de salida directamente
         exit(cuenta);
     }
     else{
+        // Resultado grande: usar archivo temporal
         char filename[256];
         sprintf(filename, ARCHIVO_PATRON, getpid());
         FILE *file = fopen(filename, "w");
@@ -41,6 +53,7 @@ void funcProceso(DatosProcesos arg)
             fprintf(file, "%d", cuenta);
             fclose(file);
         }
+        // Código especial para indicar que el resultado está en archivo
         exit(255);
     }
 }
